@@ -1,0 +1,87 @@
+*yapi* Vim integration with yapi, a YAML configured CLI API Client
+
+Author:  Dan Bridges <dan@danbridges.org>
+License: Same terms as Vim itself (see |license|)
+
+==============================================================================
+Contents                                                       *yapi-contents*
+
+  1. Intro.................................................|yapi-intro|
+  2. Commands..............................................|yapi-commands|
+  3. Options...............................................|yapi-options|
+  4. Contributing..........................................|yapi-contributing|
+
+==============================================================================
+INTRO                                                             *yapi-intro*
+
+This plugin provides integration with `yapi`, a very a very simple CLI based
+API client (a la Postman) which uses a yaml file for configuration.
+
+`yapi` can be downloaded here: https://github.com/dbridges/yapi
+
+A sample `yapi.yml` file specifying project wide settings and 3 request routes:
+
+```yaml
+---
+# Project Settings
+root: http://localhost:3000
+session: my_project
+headers:
+  Content-Type: application/json
+  Accept: application/json
+print_headers: true
+
+# Routes
+
+users.index:
+  path: /users
+  params:
+    page: 2
+    per: 100
+
+users.show:
+  path: /users/1
+
+users.create:
+  path: /users
+  method: POST
+  body: |
+    {
+      "name": "Test User",
+      "email": "testuser@example.com",
+    }
+```
+
+Place your cursor anywhere inside a named request
+
+```yaml
+users.index:
+  path: /users
+  params: ▋ <-- Cursor 
+    page: 2
+    per: 100
+```
+
+and run |:YAPIFetch|.
+
+==============================================================================
+COMMANDS                                                       *yapi-commands*
+
+:YAPIFetch                                                        *:YAPIFetch*
+
+    Run the request at the current cursor position.
+
+==============================================================================
+OPTIONS                                                         *yapi-options*
+
+                                               *g:yapi_populate_location_list*
+Set to 1 to always populate the location list with the response results.
+Default 0.
+
+==============================================================================
+CONTRIBUTING                                    *yapi-contributing*
+
+To report an issue or contribute a pull request, please visit the project
+home page: https://github.com/dbridges/vim-yapi
+
+vim: ft=help tw=78 et ts=8 sw=8 sts=8 norl
